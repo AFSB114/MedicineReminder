@@ -5,7 +5,6 @@ import com.sena.medicinereminder.model.Reminder;
 import com.sena.medicinereminder.repository.IReminder;
 import com.sena.medicinereminder.service.MailService;
 import com.sena.medicinereminder.service.ReminderService;
-import com.sena.medicinereminder.service.ScheduleService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
