@@ -1,8 +1,8 @@
 package com.sena.medicinereminder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
@@ -21,6 +21,7 @@ public class Schedule {
     private LocalTime time;
 
     @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Reminder> reminderList ;
 
     public Schedule() {

@@ -1,5 +1,6 @@
 package com.sena.medicinereminder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 
@@ -30,6 +31,7 @@ public class Patient {
     private LocalDateTime registrationDate = LocalDateTime.now();
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Prescription> prescriptionList;
 
     public Patient() {

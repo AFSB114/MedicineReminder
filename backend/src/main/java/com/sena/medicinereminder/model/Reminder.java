@@ -24,7 +24,7 @@ public class Reminder {
 
     @CreatedDate
     @Column(name = "remind_date", nullable = false)
-    private LocalDate remindDate;
+    private LocalDate remindDate = LocalDate.now();
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
@@ -39,13 +39,9 @@ public class Reminder {
     public Reminder() {
     }
 
-    public Reminder(Prescription prescription, Schedule schedule, LocalDate remindDate, StatusReminder status, LocalDateTime sentTime, LocalDateTime secondSentTime) {
+    public Reminder(Prescription prescription, Schedule schedule) {
         this.prescription = prescription;
         this.schedule = schedule;
-        this.remindDate = remindDate;
-        this.status = status;
-        this.sentTime = sentTime;
-        this.secondSentTime = secondSentTime;
     }
 
     public Long getId() {

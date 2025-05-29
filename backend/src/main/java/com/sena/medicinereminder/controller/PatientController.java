@@ -2,7 +2,6 @@ package com.sena.medicinereminder.controller;
 
 import com.sena.medicinereminder.DTO.PatientDTO;
 import com.sena.medicinereminder.DTO.ResponseDTO;
-import com.sena.medicinereminder.model.Patient;
 import com.sena.medicinereminder.projection.PatientProjection;
 import com.sena.medicinereminder.service.PatientService;
 import org.springframework.http.ResponseEntity;

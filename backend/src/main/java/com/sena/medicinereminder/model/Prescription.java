@@ -1,5 +1,6 @@
 package com.sena.medicinereminder.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -12,11 +13,11 @@ public class Prescription {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "patient_id", nullable = false)
     private Patient patient;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "medicine_id", nullable = false)
     private Medicine medicine;
 
@@ -30,9 +31,11 @@ public class Prescription {
     private LocalDateTime suspendedDate;
 
     @OneToMany(mappedBy = "prescription", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Reminder> reminderList;
 
     @OneToMany(mappedBy = "prescription", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Schedule> scheduleList;
 
     public Prescription() {
