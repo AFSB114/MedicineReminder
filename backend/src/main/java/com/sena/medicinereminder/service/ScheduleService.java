@@ -1,5 +1,6 @@
 package com.sena.medicinereminder.service;
 
+import com.sena.medicinereminder.DTO.ReminderDTO;
 import com.sena.medicinereminder.DTO.ResponseDTO;
 import com.sena.medicinereminder.DTO.ScheduleDTO;
 import com.sena.medicinereminder.model.Schedule;
@@ -12,9 +13,11 @@ import java.util.List;
 public class ScheduleService {
 
     private final ISchedule iSchedule;
+    private final ReminderService reminderService;
 
-    public ScheduleService(ISchedule iSchedule) {
+    public ScheduleService(ISchedule iSchedule, ReminderService reminderService) {
         this.iSchedule = iSchedule;
+        this.reminderService = reminderService;
     }
 
     public List<Schedule> getAllSchedules() {
@@ -26,6 +29,8 @@ public class ScheduleService {
 
         Schedule schedule = DtoToModel(scheduleDTO);
         iSchedule.save(schedule);
+
+        reminderService.addReminder(new ReminderDTO(schedule.getPrescription(), schedule));
 
         return ResponseDTO.ok("Schedule added successfully");
     }
