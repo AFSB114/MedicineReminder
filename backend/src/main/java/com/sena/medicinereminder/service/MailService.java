@@ -15,8 +15,13 @@ public class MailService {
     @Value("${spring.mail.username}")
     private String from;
 
-    private JavaMailSender mailSender;
-    private TemplateEngine templateEngine;
+    private final JavaMailSender mailSender;
+    private final TemplateEngine templateEngine;
+
+    public MailService(JavaMailSender mailSender, TemplateEngine templateEngine) {
+        this.mailSender = mailSender;
+        this.templateEngine = templateEngine;
+    }
 
     public void sendReminderMail(Prescription prescription) {
         Context context = new Context();
