@@ -30,4 +30,10 @@ public class PrescriptionController {
         ResponseDTO res = prescriptionService.addPrescription(prescriptionDTO);
         return ResponseEntity.ok(res);
     }
+
+    @PutMapping("/suspended/{id}")
+    public ResponseEntity<ResponseDTO> suspendedPrescription(@PathVariable Long id) {
+        ResponseDTO res = prescriptionService.suspendedPrescription(id);
+        return ResponseEntity.ok(res);
+    }
 }

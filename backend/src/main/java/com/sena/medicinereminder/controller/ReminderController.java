@@ -30,4 +30,10 @@ public class ReminderController {
         ResponseDTO res = reminderService.addReminder(reminderDTO);
         return ResponseEntity.ok(res);
     }
+
+    @PutMapping("/confirm/{id}")
+    public ResponseEntity<ResponseDTO> confirmReminder(@PathVariable Long id) {
+        ResponseDTO res = reminderService.confirmReminder(id);
+        return ResponseEntity.ok(res);
+    }
 }

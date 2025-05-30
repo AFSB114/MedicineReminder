@@ -3,10 +3,10 @@ package com.sena.medicinereminder.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 
-@Entity(name = "Prescription")
+@Entity(name = "prescription")
 public class Prescription {
     @Id
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
@@ -28,7 +28,7 @@ public class Prescription {
     private Boolean suspended = false;
 
     @Column(name = "suspended_date")
-    private LocalDateTime suspendedDate;
+    private LocalDate suspendedDate;
 
     @OneToMany(mappedBy = "prescription", cascade = CascadeType.ALL)
     @JsonIgnore
@@ -87,11 +87,11 @@ public class Prescription {
         this.suspended = suspended;
     }
 
-    public LocalDateTime getSuspendedDate() {
+    public LocalDate getSuspendedDate(Object o) {
         return suspendedDate;
     }
 
-    public void setSuspendedDate(LocalDateTime suspendedDate) {
+    public void setSuspendedDate(LocalDate suspendedDate) {
         this.suspendedDate = suspendedDate;
     }
 

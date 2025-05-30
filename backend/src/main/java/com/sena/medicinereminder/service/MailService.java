@@ -45,6 +45,7 @@ public class MailService {
             helper.setSubject(subject);
             helper.setText(content, true);
 
+            mailSender.send(mimeMessage);
         } catch (Exception e){
             System.out.println(e.getMessage());
         }

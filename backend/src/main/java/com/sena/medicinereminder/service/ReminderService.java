@@ -2,11 +2,13 @@ package com.sena.medicinereminder.service;
 
 import com.sena.medicinereminder.DTO.ReminderDTO;
 import com.sena.medicinereminder.DTO.ResponseDTO;
+import com.sena.medicinereminder.definition.StatusReminder;
 import com.sena.medicinereminder.model.Reminder;
 import com.sena.medicinereminder.repository.IReminder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReminderService {
@@ -28,6 +30,17 @@ public class ReminderService {
         iReminder.save(reminder);
 
         return ResponseDTO.ok("Reminder added successfully");
+    }
+
+    public ResponseDTO confirmReminder(Long id) {
+        Optional<Reminder> reminderOptional = iReminder.findById(id);
+        if(reminderOptional.isEmpty()) return ResponseDTO.error("Reminder not found");
+
+        Reminder reminder = reminderOptional.get();
+        reminder.setStatus(StatusReminder.CONFIRMED);
+        iReminder.save(reminder);
+
+        return ResponseDTO.ok("Reminder confirmed successfully");
     }
 
     public boolean validation(ReminderDTO reminderDTO) {

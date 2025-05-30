@@ -3,6 +3,7 @@ package com.sena.medicinereminder.service;
 import com.sena.medicinereminder.DTO.ReminderDTO;
 import com.sena.medicinereminder.DTO.ResponseDTO;
 import com.sena.medicinereminder.DTO.ScheduleDTO;
+import com.sena.medicinereminder.model.Reminder;
 import com.sena.medicinereminder.model.Schedule;
 import com.sena.medicinereminder.repository.ISchedule;
 import org.springframework.stereotype.Service;
@@ -30,7 +31,8 @@ public class ScheduleService {
         Schedule schedule = DtoToModel(scheduleDTO);
         iSchedule.save(schedule);
 
-        reminderService.addReminder(new ReminderDTO(schedule.getPrescription(), schedule));
+        ReminderDTO reminderDTO = new ReminderDTO(schedule.getPrescription(), schedule);
+        reminderService.addReminder(reminderDTO);
 
         return ResponseDTO.ok("Schedule added successfully");
     }

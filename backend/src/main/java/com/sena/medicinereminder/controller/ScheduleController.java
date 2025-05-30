@@ -13,7 +13,6 @@ import java.util.List;
 @RequestMapping("/api/v1/schedule")
 public class ScheduleController {
 
-
     private final ScheduleService scheduleService;
 
     public ScheduleController(ScheduleService scheduleService) {
