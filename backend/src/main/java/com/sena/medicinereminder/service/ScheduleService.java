@@ -25,6 +25,10 @@ public class ScheduleService {
         return iSchedule.findAll();
     }
 
+    public List<Schedule> getScheduleByPrescription(Long id) {
+        return iSchedule.getSchedulesByPrescription(id);
+    }
+
     public ResponseDTO addSchedule(ScheduleDTO scheduleDTO) {
         if (!validation(scheduleDTO)) return ResponseDTO.error("All fields are required");
 

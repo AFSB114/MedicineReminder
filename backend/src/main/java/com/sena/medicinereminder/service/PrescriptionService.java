@@ -31,7 +31,12 @@ public class PrescriptionService {
         if (!validation(prescriptionDTO)) return ResponseDTO.error("All fields are required");
 
         Prescription prescription = DtoToModel(prescriptionDTO);
-        iPrescription.save(prescription);
+        Optional<Long> prescriptionOptional = iPrescription.alreadyExistPatientAndMedicine(prescription.getPatient(), prescription.getMedicine(), prescription.getDosage());
+        if (prescriptionOptional.isEmpty()) {
+            iPrescription.save(prescription);
+        } else {
+            prescription.setId(prescriptionOptional.get());
+        }
 
         for (LocalTime time : prescriptionDTO.getTimes()) {
             ScheduleDTO scheduleDTO = new ScheduleDTO(prescription, time);

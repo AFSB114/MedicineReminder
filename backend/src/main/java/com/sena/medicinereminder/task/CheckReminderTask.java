@@ -25,10 +25,12 @@ public class CheckReminderTask {
         this.iPrescription = iPrescription;
     }
 
-    @Scheduled(fixedRate = 300000)
+    @Scheduled(fixedRate = 60000)
     public void checkReminder() {
+        System.out.println("Checking Reminder");
+
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime beforeOneHour = now.minusHours(1);
+        LocalDateTime beforeOneHour = now.minusMinutes(5);
 
         List<Reminder> reminderListPending = iReminder.remindersPending();
 
@@ -36,7 +38,7 @@ public class CheckReminderTask {
             System.out.println("Enviando recordatorio inicial para " + reminder.getId());
             reminder.setSentTime(now);
             reminder.setStatus(StatusReminder.SENT);
-            mailService.sendReminderMail(reminder.getPrescription());
+            mailService.sendReminderMail(reminder.getPrescription(), reminder.getId());
             iReminder.save(reminder);
         }
 
@@ -53,7 +55,7 @@ public class CheckReminderTask {
         for (Reminder reminder : reminderListSentBeforeOneHour) {
             System.out.println("Reenviando recordatorio " + reminder.getId());
             reminder.setSecondSentTime(now);
-            mailService.sendReminderMail(reminder.getPrescription());
+            mailService.sendReminderMail(reminder.getPrescription(),reminder.getId());
             iReminder.save(reminder);
         }
 

@@ -15,6 +15,7 @@ public class Schedule {
 
     @ManyToOne
     @JoinColumn(name = "prescription_id", nullable = false)
+    @JsonIgnore
     private Prescription prescription;
 
     @Column(name = "time", nullable = false)

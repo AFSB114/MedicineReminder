@@ -4,9 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 
 @Entity(name = "medicine")
@@ -22,8 +20,10 @@ public class Medicine {
     @Column(name = "description", length = 100)
     private String description;
 
+    @CreatedDate
     @Column(name = "created_date", updatable = false)
-    private LocalDateTime startTime = LocalDateTime.now();
+    @JsonIgnore
+    private LocalDateTime created_date = LocalDateTime.now();
 
     @OneToMany(mappedBy = "medicine", cascade = CascadeType.ALL)
     @JsonIgnore
@@ -61,12 +61,12 @@ public class Medicine {
         this.description = description;
     }
 
-    public LocalDateTime getStartTime() {
-        return startTime;
+    public LocalDateTime getCreated_date() {
+        return created_date;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
+    public void setCreated_date(LocalDateTime startTime) {
+        this.created_date = startTime;
     }
 
     public List<Prescription> getPrescriptionList() {

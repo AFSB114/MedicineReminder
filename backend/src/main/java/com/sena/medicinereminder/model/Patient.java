@@ -6,9 +6,7 @@ import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 @Entity(name = "patient")
 public class Patient {
@@ -23,11 +21,12 @@ public class Patient {
     @Column(name= "last_name", nullable = false, length = 100)
     private String lastName;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false, unique = true, length = 100)
     private String email;
 
     @CreatedDate
     @Column(name = "registration_date", updatable = false)
+    @JsonIgnore
     private LocalDateTime registrationDate = LocalDateTime.now();
 
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)

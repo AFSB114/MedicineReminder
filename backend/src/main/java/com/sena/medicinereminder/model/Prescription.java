@@ -35,7 +35,6 @@ public class Prescription {
     private List<Reminder> reminderList;
 
     @OneToMany(mappedBy = "prescription", cascade = CascadeType.ALL)
-    @JsonIgnore
     private List<Schedule> scheduleList;
 
     public Prescription() {
