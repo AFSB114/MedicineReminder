@@ -29,8 +29,8 @@ public class MailService {
         context.setVariable("lastName", prescription.getPatient().getLastName());
         context.setVariable("medicine", prescription.getMedicine().getName());
         context.setVariable("dosage", prescription.getDosage());
-        context.setVariable("confirmUrl", "http://localhost:3000/confirm/" + id);
-        context.setVariable("suspendUrl", "http://localhost:3000/suspend/" + prescription.getId());
+        context.setVariable("confirmUrl", "http://192.168.1.18:3000/confirm/" + id);
+        context.setVariable("suspendUrl", "http://192.168.1.18:3000/suspend/" + prescription.getId());
 
         String content = templateEngine.process("reminderMail", context);
 

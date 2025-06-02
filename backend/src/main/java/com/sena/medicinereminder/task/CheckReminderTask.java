@@ -1,11 +1,15 @@
 package com.sena.medicinereminder.task;
 
+import com.sena.medicinereminder.DTO.ReminderDTO;
 import com.sena.medicinereminder.definition.StatusReminder;
 import com.sena.medicinereminder.model.Prescription;
 import com.sena.medicinereminder.model.Reminder;
+import com.sena.medicinereminder.model.Schedule;
 import com.sena.medicinereminder.repository.IPrescription;
 import com.sena.medicinereminder.repository.IReminder;
 import com.sena.medicinereminder.service.MailService;
+import com.sena.medicinereminder.service.ReminderService;
+import com.sena.medicinereminder.service.ScheduleService;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -18,11 +22,15 @@ public class CheckReminderTask {
     private final IReminder iReminder;
     private final MailService mailService;
     private final IPrescription iPrescription;
+    private final ScheduleService scheduleService;
+    private final ReminderService reminderService;
 
-    public CheckReminderTask(IReminder iReminder, MailService mailService, IPrescription iPrescription) {
+    public CheckReminderTask(IReminder iReminder, MailService mailService, IPrescription iPrescription, ScheduleService scheduleService, ReminderService reminderService) {
         this.iReminder = iReminder;
         this.mailService = mailService;
         this.iPrescription = iPrescription;
+        this.scheduleService = scheduleService;
+        this.reminderService = reminderService;
     }
 
     @Scheduled(fixedRate = 60000)
@@ -65,6 +73,16 @@ public class CheckReminderTask {
             System.out.println("Marcando como NO CONFIRMADO: " + reminder.getId());
             reminder.setStatus(StatusReminder.NOT_CONFIRMED);
             iReminder.save(reminder);
+        }
+    }
+
+    @Scheduled(cron = "0 0 0 * * *")
+    public void scheduleReminders() {
+        List<Schedule> scheduleList = scheduleService.getAllSchedules();
+
+        for (Schedule schedule : scheduleList) {
+            ReminderDTO reminderDTO = new ReminderDTO(schedule.getPrescription(), schedule);
+            reminderService.addReminder(reminderDTO);
         }
     }
 

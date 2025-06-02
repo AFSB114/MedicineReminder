@@ -1,5 +1,6 @@
 package com.sena.medicinereminder.repository;
 
+import com.sena.medicinereminder.DTO.ReminderInfoDTO;
 import com.sena.medicinereminder.model.Reminder;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,4 +17,25 @@ public interface IReminder extends JpaRepository<Reminder, Long> {
 
     @Query("SELECT r FROM reminder r WHERE r.status = 'SENT' AND r.secondSentTime <= :threshold")
     List<Reminder> remindersSecondSentBeforeOneHour(LocalDateTime threshold);
+
+    @Query("""
+    SELECT new com.sena.medicinereminder.DTO.ReminderInfoDTO(
+        r.id,
+        p.firstName,
+        p.lastName,
+        p.email,
+        s.time,
+        m.name,
+        r.sentTime,
+        r.secondSentTime,
+        r.status
+    )
+    FROM reminder r
+    JOIN r.prescription pr
+    JOIN pr.patient p
+    JOIN pr.medicine m
+    JOIN r.schedule s
+    """)
+    List<ReminderInfoDTO> findAllReminderInfo();
+
 }

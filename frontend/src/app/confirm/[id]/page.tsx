@@ -1,7 +1,8 @@
 "use client"
 
-import { useParams, useRouter } from "next/navigation";
+import { useParams } from "next/navigation";
 import { useCallback, useEffect } from "react";
+import { Navigation } from "@/ui/Navigation";
 
 export default function ConfirmPage() {
     const params = useParams();
@@ -23,5 +24,7 @@ export default function ConfirmPage() {
 
     useEffect(() => {
         confirm()
-    },[confirm])
-}
+    }, [confirm])
+    
+    return <Navigation />
+} 

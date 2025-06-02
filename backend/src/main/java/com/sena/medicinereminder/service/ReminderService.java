@@ -1,6 +1,7 @@
 package com.sena.medicinereminder.service;
 
 import com.sena.medicinereminder.DTO.ReminderDTO;
+import com.sena.medicinereminder.DTO.ReminderInfoDTO;
 import com.sena.medicinereminder.DTO.ResponseDTO;
 import com.sena.medicinereminder.definition.StatusReminder;
 import com.sena.medicinereminder.model.Reminder;
@@ -21,6 +22,10 @@ public class ReminderService {
 
     public List<Reminder> getAllReminders() {
         return iReminder.findAll();
+    }
+
+    public List<ReminderInfoDTO> getAllReminderInfo() {
+        return iReminder.findAllReminderInfo();
     }
 
     public ResponseDTO addReminder(ReminderDTO reminderDTO) {

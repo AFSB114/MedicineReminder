@@ -23,8 +23,8 @@ export interface MedicineContextType {
 
 export interface PrescriptionType {
     id: number,
-    patient: {id: number} | PatientType<Partial>,
-    medicine: {id: number} | MedicineType<Partial>,
+    patient: { id: number } | PatientType<Partial>,
+    medicine: { id: number } | MedicineType<Partial>,
     dosage: number | null,
     suspended: boolean,
     suspendedDate: string
@@ -44,7 +44,7 @@ export interface ListTimes {
 
 export interface PrescriptionContextType {
     prescriptionList: PrescriptionType[] | null,
-    addPrescription: (prescription: Omit<PrescriptionType, "id" | "suspended" | "suspendedDate" | "scheduleList"> & ListTimes ) => void
+    addPrescription: (prescription: Omit<PrescriptionType, "id" | "suspended" | "suspendedDate" | "scheduleList"> & ListTimes) => void
 }
 
 export interface Response<T> {
@@ -53,4 +53,16 @@ export interface Response<T> {
     ok: boolean,
     data: T[] | null,
     errors: string | null
+}
+
+export interface MedicineReminder {
+    id: string
+    firstName: string
+    lastName: string
+    email: string;
+    scheduleTime: string;
+    medicine: string;
+    sentTime: string;
+    secondSentTime: string;
+    status: 'CONFIRMED' | 'NOT_CONFIRMED' | 'PENDING' | 'SENT';
 }

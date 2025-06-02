@@ -1,6 +1,7 @@
 package com.sena.medicinereminder.controller;
 
 import com.sena.medicinereminder.DTO.ReminderDTO;
+import com.sena.medicinereminder.DTO.ReminderInfoDTO;
 import com.sena.medicinereminder.DTO.ResponseDTO;
 import com.sena.medicinereminder.model.Reminder;
 import com.sena.medicinereminder.service.ReminderService;
@@ -22,6 +23,12 @@ public class ReminderController {
     @GetMapping("/")
     public ResponseEntity<List<Reminder>> getAllReminders() {
         List<Reminder> res = reminderService.getAllReminders();
+        return ResponseEntity.ok(res);
+    }
+
+    @GetMapping("/info")
+    public ResponseEntity<List<ReminderInfoDTO>> getInfoReminder() {
+        List<ReminderInfoDTO> res = reminderService.getAllReminderInfo();
         return ResponseEntity.ok(res);
     }
 

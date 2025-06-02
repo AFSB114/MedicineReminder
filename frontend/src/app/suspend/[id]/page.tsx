@@ -1,11 +1,11 @@
 "use client"
 
-import { useParams, useRouter } from "next/navigation";
+import { useParams,  } from "next/navigation";
 import { useCallback, useEffect } from "react";
+import { Navigation } from "@/ui/Navigation";
 
 export default function SuspendPage() {
     const params = useParams();
-    const router = useRouter();
     const id = parseInt(params.id as string);
 
     const apiUrl = `${process.env.NEXT_PUBLIC_API_URL}/prescription`
@@ -24,5 +24,7 @@ export default function SuspendPage() {
 
     useEffect(() => {
         suspeded()
-    },[suspeded])
+    }, [suspeded])
+    
+    return <Navigation />
 }
